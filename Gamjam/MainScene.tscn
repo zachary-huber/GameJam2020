@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://TestPlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Level1.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 266.181, 15.5177 )
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
