@@ -1,0 +1,315 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Sprites/HONOR_enemy_gold.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+var player = null
+export (int) var run_speed = 150
+export (int) var gravity = 1200
+export (int) var Health = 150
+export (int) var damage = 10
+export (bool)var isAlive = true
+
+var velocity = Vector2.ZERO
+var aggroed = false
+
+
+
+func _on_attack_radius_body_entered(body):
+	if (body.is_in_group(\"Player\") and isAlive == true):
+		aggroed = true
+		if($Sprite.flip_h == true):
+			Attack1()
+		else:
+			Attack2()
+
+func _on_attack_radius_body_exited(body):
+	if body.is_in_group(\"Player\") and isAlive:
+		aggroed = false
+func chase_Player():
+	if( player != null):
+		
+		if player.position.x < position.x:
+			velocity.x =  - run_speed
+			$Sprite.flip_h = true
+			if aggroed == true and isAlive:
+				$AnimationPlayer.play(\"Attack2\")
+			elif isAlive:
+				$AnimationPlayer.play(\"Walk\")
+			elif !isAlive:
+				die()
+
+
+		elif player.position.x > position.x:
+			velocity.x = run_speed
+			$Sprite.flip_h = false
+			if aggroed == true and isAlive:
+				$AnimationPlayer.play(\"Attack\")
+			elif isAlive:
+				$AnimationPlayer.play(\"Walk\")
+			elif !isAlive:
+				die()
+		
+		
+	elif player == null:
+		velocity.x = 0
+		$AnimationPlayer.play(\"Idle\")
+
+func _physics_process(delta):
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0,-1))
+	if(Health <= 0) or isAlive == false and is_on_floor():
+		die()
+
+	chase_Player()
+#func _Knock_back():
+	#if(velocity.x <0):
+	#	position.x = lerp(position.x, position.x - 100, .5)
+	#	velocity.y -= 200
+	#else:
+#		position.x = lerp(position.x, position.x + 100, .5)
+#		velocity.y -= 200
+
+func die():
+	$AnimationPlayer.play(\"die\")
+	isAlive = false
+	set_physics_process(false)
+	$despawn_timer.start()
+
+
+func take_damage(hurt):
+	Health = Health - hurt
+
+
+func _on_Area2D_body_entered(body):
+	player = body
+
+func _on_Area2D_body_exited(body):
+	player = null
+
+
+func Attack1():
+	$AnimationPlayer.play(\"Attack2\")
+
+func Attack2():
+	$AnimationPlayer.play(\"Attack\")
+
+
+func _on_Hitbox_body_entered(body):
+	if body.is_in_group(\"Player\"):
+		body.take_damage(damage)
+
+func _on_despawn_timer_timeout():
+	queue_free()
+"
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.0319313, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Attack2"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hitbox/CollisionShape2D2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.0304108, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=4]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 12, 13, 14, 15, 16 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 19.1282, 22.3942 )
+
+[sub_resource type="RectangleShape2D" id=8]
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 250.0
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 10, 22.5908 )
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 85.0
+
+[node name="EnemyBase" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+collision_layer = 2
+collision_mask = 3
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.35849, 0 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+hframes = 17
+frame = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 2 )
+anims/Attack2 = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Walk = SubResource( 5 )
+anims/die = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.401886, 1.00565 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 1.58112, 21.8722 )
+shape = SubResource( 8 )
+
+[node name="detect_radius" type="Area2D" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 1.07547, 5.3773 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detect_radius"]
+shape = SubResource( 9 )
+
+[node name="hitbox" type="Area2D" parent="."]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( 33.6615, 4.08158 )
+shape = SubResource( 10 )
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( -33.016, 1.8386 )
+shape = SubResource( 10 )
+disabled = true
+
+[node name="attack_radius" type="Area2D" parent="."]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_radius"]
+position = Vector2( 1.42735, 3.46642 )
+shape = SubResource( 11 )
+
+[node name="despawn_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="body_entered" from="detect_radius" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="detect_radius" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="area_entered" from="attack_radius" to="." method="_on_Attackbox_area_entered"]
+[connection signal="area_shape_entered" from="attack_radius" to="." method="_on_Attackbox_area_shape_entered"]
+[connection signal="body_entered" from="attack_radius" to="." method="_on_attack_radius_body_entered"]
+[connection signal="body_exited" from="attack_radius" to="." method="_on_attack_radius_body_exited"]
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

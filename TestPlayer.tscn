@@ -1,0 +1,379 @@
+[gd_scene load_steps=51 format=2]
+
+[ext_resource path="res://Scripts/KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/HONOR_KNIGHT.png" type="Texture" id=2]
+[ext_resource path="res://grassland_tileset/PNG/bg4.png" type="Texture" id=3]
+[ext_resource path="res://Attack2.tres" type="Animation" id=4]
+[ext_resource path="res://EMOTES.png" type="Texture" id=5]
+[ext_resource path="res://POL-chamber-of-secrets-short.wav" type="AudioStream" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8.64391, 9.84015 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack2"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 9, 10 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/Area2D/CollisionShape2D2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.039534, 0.0801921 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Dead"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 17 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 14, 15, 16, 17 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 13 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 11, 12 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11 ]
+}
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 21.1727, 24.6568 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 10, 9.51784 )
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Attack"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Attack2"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Dead"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Death"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "Fall"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Fall"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "Walk"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "crouch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachine" id=43]
+states/Attack/node = SubResource( 12 )
+states/Attack/position = Vector2( -76, 254 )
+states/Attack2/node = SubResource( 13 )
+states/Attack2/position = Vector2( 166, 254 )
+states/Dead/node = SubResource( 14 )
+states/Dead/position = Vector2( 238, -92.344 )
+states/Death/node = SubResource( 15 )
+states/Death/position = Vector2( 301, 275 )
+"states/Fall 2/node" = SubResource( 16 )
+"states/Fall 2/position" = Vector2( 919, 141 )
+"states/Fall 3/node" = SubResource( 17 )
+"states/Fall 3/position" = Vector2( 547, 281 )
+states/Idle/node = SubResource( 18 )
+states/Idle/position = Vector2( 346, 37 )
+"states/Jump 2/node" = SubResource( 19 )
+"states/Jump 2/position" = Vector2( 809, 17 )
+states/Walk/node = SubResource( 20 )
+states/Walk/position = Vector2( 97, 37 )
+states/crouch/node = SubResource( 21 )
+states/crouch/position = Vector2( 962, 290 )
+transitions = [ "Idle", "Attack", SubResource( 22 ), "Attack", "Idle", SubResource( 23 ), "Idle", "Walk", SubResource( 24 ), "Idle", "Jump 2", SubResource( 25 ), "Fall 2", "Idle", SubResource( 26 ), "Idle", "crouch", SubResource( 27 ), "Idle", "Death", SubResource( 28 ), "Idle", "Fall 3", SubResource( 29 ), "Walk", "Attack", SubResource( 30 ), "Walk", "Jump 2", SubResource( 31 ), "Walk", "Fall 3", SubResource( 32 ), "Walk", "crouch", SubResource( 33 ), "Fall 3", "Idle", SubResource( 34 ), "Jump 2", "Fall 2", SubResource( 35 ), "crouch", "Idle", SubResource( 36 ), "Walk", "Idle", SubResource( 37 ), "Idle", "Attack2", SubResource( 38 ), "Attack2", "Idle", SubResource( 39 ), "Walk", "Attack2", SubResource( 40 ), "Idle", "Dead", SubResource( 41 ), "Dead", "Idle", SubResource( 42 ) ]
+start_node = "Idle"
+end_node = "Death"
+graph_offset = Vector2( -223, -121.344 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=44]
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+position = Vector2( -145.263, -53.6842 )
+collision_mask = 6
+script = ExtResource( 1 )
+run_speed = 300
+jump_speed = -600
+
+[node name="Sprite" type="Sprite" parent="." groups=[
+"Player",
+]]
+editor/display_folded = true
+position = Vector2( 35.6152, -26.5849 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+hframes = 18
+
+[node name="Area2D" type="Area2D" parent="Sprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
+position = Vector2( 20, 3.943 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite/Area2D"]
+position = Vector2( -20.8674, 4.48073 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+self_modulate = Color( 0.447059, 0.168627, 0.168627, 1 )
+position = Vector2( -283.158, -288.691 )
+anchor_mode = 0
+current = true
+zoom = Vector2( 0.75, 0.75 )
+smoothing_enabled = true
+
+[node name="Node2D" type="Node2D" parent="Camera2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D/Node2D"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera2D/Node2D/ParallaxBackground"]
+visible = false
+motion_mirroring = Vector2( 1.25, 0 )
+
+[node name="Sprite" type="Sprite" parent="Camera2D/Node2D/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 357, 39.51 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = ExtResource( 4 )
+anims/Attack2 = SubResource( 2 )
+anims/Dead = SubResource( 3 )
+anims/Death = SubResource( 4 )
+anims/Fall = SubResource( 5 )
+anims/Idle = SubResource( 6 )
+anims/Jump = SubResource( 7 )
+anims/Walk = SubResource( 8 )
+anims/crouch = SubResource( 9 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." groups=[
+"Player",
+]]
+visible = false
+position = Vector2( 36.4371, -26.3157 )
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=[
+"Player",
+]]
+position = Vector2( 37.3389, -3.7271 )
+shape = SubResource( 11 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 43 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 44 )
+
+[node name="GUI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Durability" type="ProgressBar" parent="GUI"]
+margin_left = 9.0
+margin_top = 26.0
+margin_right = 70.0
+margin_bottom = 14.0
+
+[node name="Health" type="ProgressBar" parent="GUI"]
+margin_left = 9.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 14.0
+value = 100.0
+
+[node name="heart" type="Sprite" parent="GUI"]
+position = Vector2( 0, 15.41 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+hframes = 14
+frame = 6
+
+[node name="skull" type="Sprite" parent="GUI"]
+position = Vector2( 0, 33.37 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+hframes = 14
+frame = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 6 )
+autoplay = true
+[connection signal="body_entered" from="Sprite/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
